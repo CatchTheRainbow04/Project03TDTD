@@ -25,7 +25,7 @@ public class ProjectAssignmentServlet extends HttpServlet {
 			int id = Integer.parseInt(request.getParameter("id"));
 			ProjectAssignment.deleteProjectAssignment(id);
 		}
-        response.sendRedirect("projectAssignmentList.jsp");
+		response.sendRedirect("projectAssignmentList.jsp");
 	}
 
 	// Xử lý thêm hoặc sửa
@@ -42,14 +42,19 @@ public class ProjectAssignmentServlet extends HttpServlet {
 		String endDateStr = request.getParameter("TdtdEndDate");
 		assignment.setEndDate((endDateStr != null && !endDateStr.isEmpty()) ? LocalDate.parse(endDateStr) : null);
 
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+
 		if ("add".equals(action)) {
 			ProjectAssignment.addProjectAssignment(assignment);
+			response.getWriter().write(
+					"{\"success\": true, \"message\": \"Thêm phân công thành công\", \"redirect\": \"ProjectAssignmentServlet\"}");
 		} else if ("update".equals(action)) {
 			assignment.setAssignmentId(Integer.parseInt(request.getParameter("TdtdAssignmentId")));
 			ProjectAssignment.updateProjectAssignment(assignment);
+			response.getWriter().write(
+					"{\"success\": true, \"message\": \"Cập nhật phân công thành công\", \"redirect\": \"ProjectAssignmentServlet\"}");
 		}
-
-		response.sendRedirect("projectAssignmentList.jsp");
 	}
 
 }

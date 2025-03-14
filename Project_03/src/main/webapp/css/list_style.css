@@ -1,0 +1,207 @@
+
+
+@import
+	url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css')
+	;
+
+:root {
+	--base-clr: #11121a;
+	--line-clr: #42434a;
+	--hover-clr: #222533;
+	--text-clr: #e6e6ef;
+	--accent-clr: #5e63ff;
+	--secondary-text-clr: #b0b3c1;
+}
+
+body {
+	font-family: 'Poppins', sans-serif;
+	background-color: var(--base-clr);
+	color: var(--text-clr);
+	margin: 0;
+	padding: 0;
+	font-size: 80%;
+}
+
+.container {
+	max-width: 1200px;
+	margin: 10px auto;
+	padding: 16px;
+	background-color: var(--hover-clr);
+	border-radius: 9.6px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+	animation: fadeIn 0.5s ease-in-out;
+}
+
+h2 {
+	color: var(--accent-clr);
+	font-weight: 600;
+	margin-bottom: 0;
+	animation: slideInDown 0.5s ease-in-out;
+}
+
+.btn-add {
+	background-color: var(--accent-clr);
+	color: var(--text-clr);
+	padding: 8px 16px;
+	border-radius: 20px;
+	text-decoration: none;
+	transition: all 0.3s ease;
+	box-shadow: 0 1.6px 4px rgba(94, 99, 255, 0.3);
+}
+
+.btn-add:hover {
+	background-color: #4b50d6;
+	transform: translateY(-1.6px);
+	box-shadow: 0 3.2px 8px rgba(94, 99, 255, 0.5);
+	color: var(--text-clr);
+}
+
+.btn-add i {
+	margin-right: 4px;
+}
+
+.table-responsive {
+	overflow-x: auto;
+}
+
+.table {
+	width: 100%;
+	margin-top: 16px;
+	border-collapse: separate;
+	border-spacing: 0;
+	animation: fadeInUp 0.5s ease-in-out;
+	background-color: var(--base-clr);
+}
+
+.table thead th {
+	background-color: var(--line-clr);
+	color: var(--text-clr);
+	font-weight: 600;
+	padding: 12px;
+	text-align: center;
+	border-bottom: 1.6px solid var(--hover-clr);
+}
+
+.table tbody td {
+	padding: 9.6px 12px;
+	vertical-align: middle;
+	text-align: center;
+	border-bottom: 0.8px solid var(--line-clr);
+	color: black;
+	transition: background-color 0.3s ease;
+}
+
+.table-hover tbody tr:hover {
+	background-color: var(--hover-clr);
+
+	transition: all 0.5s ease;
+}
+
+.status {
+	display: inline-block;
+	padding: 4px 8px;
+	border-radius: 9.6px;
+	font-size: 0.72em;
+	font-weight: 500;
+}
+
+.status.blue {
+	background-color: #EBE8DB;
+	color: blue;
+}
+
+.status.red {
+	background-color: #EBE8DB;
+	color: red;
+}
+.status.orange {
+	background-color: #EBE8DB;
+	color: orange;
+}
+.status.green {
+	background-color: #EBE8DB;
+	color: green;
+}
+
+.btn-edit, .btn-delete {
+	padding: 4.8px 9.6px;
+	border-radius: 16px;
+	text-decoration: none;
+	font-size: 0.72em;
+	transition: all 0.3s ease;
+}
+
+.btn-edit {
+	background-color: var(--accent-clr);
+	color: var(--text-clr);
+	margin-right: 4px;
+}
+
+.btn-edit:hover {
+	background-color: #4b50d6;
+	transform: translateY(-0.8px);
+	box-shadow: 0 2.4px 4.8px rgba(94, 99, 255, 0.4);
+	color: var(--text-clr);
+}
+
+.btn-delete {
+	background-color: #ff4d4f;
+	color: var(--text-clr);
+}
+
+.btn-delete:hover {
+	background-color: #e63946;
+	transform: translateY(-0.8px);
+	box-shadow: 0 2.4px 4.8px rgba(255, 77, 79, 0.4);
+	color: var(--text-clr);
+}
+
+.text-center {
+	padding: 16px;
+	color: var(--secondary-text-clr);
+	font-style: italic;
+}
+
+@keyframes fadeIn {from { opacity:0;
+	
+}
+
+to {
+	opacity: 1;
+}
+
+}
+@keyframes fadeInUp {from { opacity:0;
+	transform: translateY(16px);
+}
+
+to {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+}
+@keyframes slideInDown {from { opacity:0;
+	transform: translateY(-16px);
+}
+
+to {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+}
+@media ( max-width : 768px) {
+	.btn-add {
+		padding: 6.4px 12px;
+		font-size: 0.72em;
+	}
+	.table thead th, .table tbody td {
+		font-size: 0.68em;
+		padding: 8px;
+	}
+	.btn-edit, .btn-delete {
+		padding: 4px 8px;
+		font-size: 0.64em;
+	}
+}

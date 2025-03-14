@@ -53,14 +53,18 @@ public class EmployeeServlet extends HttpServlet {
         String email = request.getParameter("TdtdEmail");
         LocalDate hireDate = LocalDate.parse(request.getParameter("TdtdHireDate"));
         String status = request.getParameter("TdtdStatus");
+        
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
 
         if ("add".equals(action)) {
             Employee.addEmployee(departmentId, positionId, fullName, dateOfBirth, gender, phoneNumber, email, hireDate, status);
+            response.getWriter().write("{\"success\": true, \"message\": \"Thêm nhân viên thành công\", \"redirect\": \"EmployeeServlet\"}");
         } else if ("update".equals(action)) {
             int id = Integer.parseInt(request.getParameter("TdtdEmployeeId"));
             Employee.updateEmployee(id, departmentId, positionId, fullName, dateOfBirth, gender, phoneNumber, email, hireDate, status);
+            response.getWriter().write("{\"success\": true, \"message\": \"Cập nhật nhân viên thành công\", \"redirect\": \"EmployeeServlet\"}");
         }
-        response.sendRedirect("employeeList.jsp");
     }
 
 }

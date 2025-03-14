@@ -38,13 +38,16 @@ public class SalaryServlet extends HttpServlet {
 		BigDecimal bonus = new BigDecimal(request.getParameter("bonus"));
 		String paymentStatus = request.getParameter("paymentStatus");
 
-		if ("add".equals(action)) {
-			Salary.add(employeeId, month, year, basicSalary, allowance, bonus, paymentStatus);
-		} else if ("update".equals(action)) {
-			int salaryId = Integer.parseInt(request.getParameter("salaryId"));
-			Salary.update(salaryId, employeeId, month, year, basicSalary, allowance, bonus, paymentStatus);
-		}
+		response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
 
-		response.sendRedirect("salaryList.jsp");
+        if ("add".equals(action)) {
+            Salary.add(employeeId, month, year, basicSalary, allowance, bonus, paymentStatus);
+            response.getWriter().write("{\"success\": true, \"message\": \"Thêm lương thành công\", \"redirect\": \"SalaryServlet\"}");
+        } else if ("update".equals(action)) {
+            int salaryId = Integer.parseInt(request.getParameter("salaryId"));
+            Salary.update(salaryId, employeeId, month, year, basicSalary, allowance, bonus, paymentStatus);
+            response.getWriter().write("{\"success\": true, \"message\": \"Cập nhật lương thành công\", \"redirect\": \"SalaryServlet\"}");
+        }
 	}
 }

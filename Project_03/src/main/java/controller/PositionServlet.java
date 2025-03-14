@@ -48,14 +48,19 @@ public class PositionServlet extends HttpServlet {
 		String name = request.getParameter("TdtdPositionName");
 		BigDecimal salaryBase = new BigDecimal(request.getParameter("TdtdSalaryBase"));
 
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+
 		if ("add".equals(action)) {
 			Position.addPosition(name, salaryBase);
+			response.getWriter().write(
+					"{\"success\": true, \"message\": \"Thêm chức vụ thành công\", \"redirect\": \"PositionServlet\"}");
 		} else if ("update".equals(action)) {
 			int id = Integer.parseInt(request.getParameter("TdtdPositionId"));
 			Position.updatePosition(id, name, salaryBase);
+			response.getWriter().write(
+					"{\"success\": true, \"message\": \"Cập nhật chức vụ thành công\", \"redirect\": \"PositionServlet\"}");
 		}
-		// Sau khi thêm/sửa, quay lại danh sách
-		response.sendRedirect("positionList.jsp");
 	}
 
 }

@@ -42,13 +42,19 @@ public class GreenProjectServlet extends HttpServlet {
 		project.setEndDate((endDateStr != null && !endDateStr.isEmpty()) ? LocalDate.parse(endDateStr) : null);
 		project.setStatus(request.getParameter("TdtdStatus"));
 
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+
 		if ("add".equals(action)) {
 			GreenProject.addGreenProject(project);
+			response.getWriter().write(
+					"{\"success\": true, \"message\": \"Thêm dự án thành công\", \"redirect\": \"GreenProjectServlet\"}");
 		} else if ("update".equals(action)) {
 			project.setProjectId(Integer.parseInt(request.getParameter("TdtdProjectId")));
 			GreenProject.updateGreenProject(project);
+			response.getWriter().write(
+					"{\"success\": true, \"message\": \"Cập nhật dự án thành công\", \"redirect\": \"GreenProjectServlet\"}");
 		}
-		response.sendRedirect("greenProjectList.jsp");
 	}
 
 }

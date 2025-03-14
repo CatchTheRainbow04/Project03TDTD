@@ -26,19 +26,23 @@ public class DepartmentServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-        String action = request.getParameter("action");
+		String action = request.getParameter("action");
 
-        String name = request.getParameter("TdtdDepartmentName");
-        String description = request.getParameter("TdtdDescription");
+		String name = request.getParameter("TdtdDepartmentName");
+		String description = request.getParameter("TdtdDescription");
 
-        if ("add".equals(action)) {
-        	Department.addDepartment(name, description);
-        } else if ("update".equals(action)) {
-            int id = Integer.parseInt(request.getParameter("TdtdDepartmentId"));
-            Department.updateDepartment(id, name, description);
-        }
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
 
-        // Sau khi thêm/sửa, quay lại danh sách
-        response.sendRedirect("departmentList.jsp");
+		if ("add".equals(action)) {
+			Department.addDepartment(name, description);
+			response.getWriter().write(
+					"{\"success\": true, \"message\": \"Thêm phòng ban thành công\", \"redirect\": \"DepartmentServlet\"}");
+		} else if ("update".equals(action)) {
+			int id = Integer.parseInt(request.getParameter("TdtdDepartmentId"));
+			Department.updateDepartment(id, name, description);
+			response.getWriter().write(
+					"{\"success\": true, \"message\": \"Cập nhật phòng ban thành công\", \"redirect\": \"DepartmentServlet\"}");
+		}
 	}
 }

@@ -42,13 +42,18 @@ public class AttendanceServlet extends HttpServlet {
 		LocalTime clockOut = (clockOutStr != null && !clockOutStr.isEmpty()) ? LocalTime.parse(clockOutStr) : null;
 		String status = request.getParameter("status");
 
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+
 		if ("add".equals(action)) {
 			Attendance.add(employeeId, date, clockIn, clockOut, status);
+			response.getWriter().write(
+					"{\"success\": true, \"message\": \"Thêm chấm công thành công\", \"redirect\": \"AttendanceServlet\"}");
 		} else if ("update".equals(action)) {
 			int attendanceId = Integer.parseInt(request.getParameter("attendanceId"));
 			Attendance.update(attendanceId, employeeId, date, clockIn, clockOut, status);
+			response.getWriter().write(
+					"{\"success\": true, \"message\": \"Cập nhật chấm công thành công\", \"redirect\": \"AttendanceServlet\"}");
 		}
-
-		response.sendRedirect("attendanceList.jsp");
 	}
 }
