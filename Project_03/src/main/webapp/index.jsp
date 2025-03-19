@@ -14,6 +14,16 @@
 	src="${pageContext.request.contextPath}/js/index_script.js" defer></script>
 </head>
 <body>
+	<%
+	String username = session.getAttribute("username").toString();
+	String role = (String) session.getAttribute("role");
+
+	// Kiểm tra đăng nhập
+	if (session.getAttribute("username") == null) {
+		response.sendRedirect("LoginServlet");
+		return;
+	}
+	%>
 	<nav id="sidebar">
 		<ul>
 			<li><span class="logo"><a href="index.jsp">Quản lý
@@ -24,6 +34,9 @@
 						<path
 							d="m313-480 155 156q11 11 11.5 27.5T468-268q-11 11-28 11t-28-11L228-452q-6-6-8.5-13t-2.5-15q0-8 2.5-15t8.5-13l184-184q11-11 27.5-11.5T468-692q11 11 11 28t-11 28L313-480Zm264 0 155 156q11 11 11.5 27.5T732-268q-11 11-28 11t-28-11L492-452q-6-6-8.5-13t-2.5-15q0-8 2.5-15t8.5-13l184-184q11-11 27.5-11.5T732-692q11 11 11 28t-11 28L577-480Z" /></svg>
 				</button></li>
+			<%
+			if (!"Employee".equals(role)) {
+			%>
 			<li class="active"><a href="#"
 				onclick="loadContent('AttendanceServlet')"> <svg
 						xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
@@ -82,13 +95,33 @@
 							d="M144 0a80 80 0 1 1 0 160A80 80 0 1 1 144 0zM512 0a80 80 0 1 1 0 160A80 80 0 1 1 512 0zM0 298.7C0 239.8 47.8 192 106.7 192l42.7 0c15.9 0 31 3.5 44.6 9.7c-1.3 7.2-1.9 14.7-1.9 22.3c0 38.2 16.8 72.5 43.3 96c-.2 0-.4 0-.7 0L21.3 320C9.6 320 0 310.4 0 298.7zM405.3 320c-.2 0-.4 0-.7 0c26.6-23.5 43.3-57.8 43.3-96c0-7.6-.7-15-1.9-22.3c13.6-6.3 28.7-9.7 44.6-9.7l42.7 0C592.2 192 640 239.8 640 298.7c0 11.8-9.6 21.3-21.3 21.3l-213.3 0zM224 224a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zM128 485.3C128 411.7 187.7 352 261.3 352l117.3 0C452.3 352 512 411.7 512 485.3c0 14.7-11.9 26.7-26.7 26.7l-330.7 0c-14.7 0-26.7-11.9-26.7-26.7z" /></svg>
 					<span>Danh sách người dùng</span>
 			</a></li>
+			<%
+			}
+			%>
+
+			<li class="active"><a href="#"
+				onclick="loadContent('profile.jsp')"> <svg
+						xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+						height="24px" width="24px" fill="#e8eaed">
+						<path
+							d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" /></svg>
+					<span>Thông tin cá nhân</span>
+			</a></li>
 		</ul>
 	</nav>
 	<div class="right-area">
 		<div class="top-nav">
-			<div class="login-username">Hehehe</div>
+			<div class="login-username">
+				<h1>
+					Xin chào
+					<%=username%>
+					!
+				</h1>
+			</div>
 			<div class="log-button">
-				<button class="btn btn-outline-success">Đăng nhập</button>
+				<a href="LogoutServlet">
+					<button class="btn btn-outline-success">Đăng xuất</button>
+				</a>
 			</div>
 		</div>
 		<main class="content">

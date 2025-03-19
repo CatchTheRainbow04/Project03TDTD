@@ -1,0 +1,90 @@
+@charset "UTF-8";
+.login-container {
+            width: 100%;
+            height:100%;
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 24px;
+            background-color: var(--hover-clr);
+            border-radius: 9.6px;
+            box-shadow: 0 4px 12px black;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .login-container h2 {
+            text-align: center;
+            color: var(--accent-clr);
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .login-form .form-group {
+            margin-bottom: 16px;
+        }
+
+        .login-form .form-control {
+            width: 100%;
+            height: 36px; /* Tăng chiều cao cho đẹp hơn */
+            padding: 8px;
+            border: 1px solid var(--line-clr);
+            border-radius: 4px;
+            background-color: var(--base-clr);
+            color: var(--text-clr);
+            font-size: 0.9em;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .login-form .form-control:focus {
+            border-color: var(--accent-clr);
+            box-shadow: 0 0 6px rgba(94, 99, 255, 0.5);
+        }
+
+        .login-form label {
+            color: var(--text-clr);
+            font-weight: 500;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .login-form .btn-login {
+            width: 100%;
+            background-color: var(--accent-clr);
+            color: var(--text-clr);
+            padding: 8px;
+            border-radius: 16px;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 1.6px 4px rgba(94, 99, 255, 0.3);
+        }
+
+        .login-form .btn-login:hover {
+            background-color: #4b50d6;
+            transform: translateY(-1.6px);
+            box-shadow: 0 3.2px 8px rgba(94, 99, 255, 0.5);
+        }
+
+        .error-message {
+            color: #ff4d4f;
+            text-align: center;
+            margin-top: 12px;
+            font-size: 0.85em;
+        }
+
+        @media (max-width: 576px) {
+            .login-container {
+                width: 90%;
+                margin: 20px auto;
+                padding: 16px;
+            }
+
+            .login-form .form-control {
+                height: 32px;
+                font-size: 0.85em;
+            }
+
+            .login-form .btn-login {
+                padding: 6px;
+                font-size: 0.85em;
+            }
+        }

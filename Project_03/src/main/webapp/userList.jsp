@@ -10,12 +10,27 @@
 	href="${pageContext.request.contextPath}/css/list_style.css">
 </head>
 <body>
+	<%
+        // Kiểm tra đăng nhập
+        if (session.getAttribute("username") == null) {
+            response.sendRedirect("LoginServlet");
+            return;
+        }
+String role = (String) session.getAttribute("role");
+    %>
 	<div class="container mt-4">
 		<div class="d-flex justify-content-between align-items-center mb-4">
 			<h2 class="mb-0">Danh sách người dùng</h2>
+			<%
+			if ("Admin".equals(role)) {
+			%>
 			<a href="#" onclick="loadContent('userForm.jsp?action=add')"
 				class="btn btn-add"> <i class="fas fa-plus"></i> Thêm người dùng
 			</a>
+			<%
+			}
+			%>
+
 		</div>
 		<div class="table-responsive">
 			<table class="table table-hover table-striped">
@@ -26,7 +41,14 @@
 						<th>Tên đăng nhập</th>
 						<th>Vai trò</th>
 						<th>Hoạt động</th>
+						<%
+			if ("Admin".equals(role)) {
+			%>
 						<th>Thao tác</th>
+						<%
+			}
+			%>
+
 					</tr>
 				</thead>
 				<tbody>
@@ -41,15 +63,21 @@
 						<td><%= user.getUsername() != null ? user.getUsername() : "" %></td>
 						<td><%= user.getRole() != null ? user.getRole() : "" %></td>
 						<td><span
-							class="status <%= user.isActive() ? "active" : "inactive" %>">
-								<%= user.isActive() ? "Có" : "Không" %>
+							class="status <%= user.isActive() ? "green" : "red" %>"> <%= user.isActive() ? "Đang hoạt động" : "Không còn hoạt động" %>
 						</span></td>
+						<%
+			if ("Admin".equals(role)) {
+			%>
 						<td><a href="#"
 							onclick="loadContent('userForm.jsp?action=update&id=<%= user.getUserId() %>')"
 							class="btn btn-sm btn-edit">Sửa</a> <a
 							href="UserServlet?action=delete&id=<%= user.getUserId() %>"
 							onclick="return confirm('Bạn có chắc muốn xóa?');"
 							class="btn btn-sm btn-delete">Xóa</a></td>
+						<%
+			}
+			%>
+
 					</tr>
 					<%
                             }

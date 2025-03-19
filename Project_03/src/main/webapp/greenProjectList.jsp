@@ -10,12 +10,27 @@
 	href="${pageContext.request.contextPath}/css/list_style.css">
 </head>
 <body>
+	<%
+	// Kiểm tra đăng nhập
+	if (session.getAttribute("username") == null) {
+		response.sendRedirect("LoginServlet");
+		return;
+	}
+	String role = (String) session.getAttribute("role");
+	%>
 	<div class="container mt-4">
 		<div class="d-flex justify-content-between align-items-center mb-4">
 			<h2 class="mb-0">Danh sách dự án cây xanh</h2>
+			<%
+			if ("Admin".equals(role)) {
+			%>
 			<a href="#" onclick="loadContent('greenProjectForm.jsp?action=add')"
 				class="btn btn-add"> <i class="fas fa-plus"></i> Thêm dự án
 			</a>
+			<%
+			}
+			%>
+
 		</div>
 		<div class="table-responsive">
 			<table class="table table-hover table-striped">
@@ -27,52 +42,67 @@
 						<th>Ngày bắt đầu</th>
 						<th>Ngày kết thúc</th>
 						<th>Trạng thái</th>
+						<%
+						if ("Admin".equals(role)) {
+						%>
 						<th>Thao tác</th>
+						<%
+						}
+						%>
+
 					</tr>
 				</thead>
 				<tbody>
 					<%
-                        List<GreenProject> projects = GreenProject.getAllGreenProjects();
-                        if (projects != null && !projects.isEmpty()) {
-                            for (GreenProject proj : projects) {
-                    %>
+					List<GreenProject> projects = GreenProject.getAllGreenProjects();
+					if (projects != null && !projects.isEmpty()) {
+						for (GreenProject proj : projects) {
+					%>
 					<tr>
-						<td><%= proj.getProjectId() %></td>
-						<td><%= proj.getProjectName() != null ? proj.getProjectName() : "" %></td>
-						<td><%= proj.getLocation() != null ? proj.getLocation() : "" %></td>
-						<td><%= proj.getStartDate() != null ? proj.getStartDate() : "" %></td>
-						<td><%= proj.getEndDate() != null ? proj.getEndDate() : "" %></td>
-						<% String status = "";
-                        String statusString = proj.getStatus();
-                        if(statusString.equals("Hoàn thành")){
-                        	status = "blue";
-                        }else if(statusString.equals("Đang thực hiện")){
-                        	status = "green";
-                        }else if(statusString.equals("Tạm dừng")){
-                        	status = "orange";
-                        }else{
-                        	status = "red";
-                        }
-                        %>
-						<td><span class="status <%= status%>"> <%= statusString %>
+						<td><%=proj.getProjectId()%></td>
+						<td><%=proj.getProjectName() != null ? proj.getProjectName() : ""%></td>
+						<td><%=proj.getLocation() != null ? proj.getLocation() : ""%></td>
+						<td><%=proj.getStartDate() != null ? proj.getStartDate() : ""%></td>
+						<td><%=proj.getEndDate() != null ? proj.getEndDate() : ""%></td>
+						<%
+						String status = "";
+						String statusString = proj.getStatus();
+						if (statusString.equals("Hoàn thành")) {
+							status = "blue";
+						} else if (statusString.equals("Đang thực hiện")) {
+							status = "green";
+						} else if (statusString.equals("Tạm dừng")) {
+							status = "orange";
+						} else {
+							status = "red";
+						}
+						%>
+						<td><span class="status <%=status%>"> <%=statusString%>
 						</span></td>
+						<%
+						if ("Admin".equals(role)) {
+						%>
 						<td><a href="#"
-							onclick="loadContent('greenProjectForm.jsp?action=update&id=<%= proj.getProjectId() %>')"
+							onclick="loadContent('greenProjectForm.jsp?action=update&id=<%=proj.getProjectId()%>')"
 							class="btn btn-sm btn-edit">Sửa</a> <a
-							href="GreenProjectServlet?action=delete&id=<%= proj.getProjectId() %>"
+							href="GreenProjectServlet?action=delete&id=<%=proj.getProjectId()%>"
 							onclick="return confirm('Bạn có chắc muốn xóa?');"
 							class="btn btn-sm btn-delete">Xóa</a></td>
+						<%
+						}
+						%>
+
 					</tr>
 					<%
-                            }
-                        } else {
-                    %>
+					}
+					} else {
+					%>
 					<tr>
 						<td colspan="7" class="text-center">Không có dữ liệu dự án.</td>
 					</tr>
 					<%
-                        }
-                    %>
+					}
+					%>
 				</tbody>
 			</table>
 		</div>

@@ -11,12 +11,27 @@
 	href="${pageContext.request.contextPath}/css/list_style.css">
 </head>
 <body>
+	<%
+        // Kiểm tra đăng nhập
+        if (session.getAttribute("username") == null) {
+            response.sendRedirect("LoginServlet");
+            return;
+        }
+String role = (String) session.getAttribute("role");
+    %>
 	<div class="container mt-4">
 		<div class="d-flex justify-content-between align-items-center mb-4">
 			<h2 class="mb-0">Danh sách nhân viên</h2>
+			<%
+		if ("Admin".equals(role)) {
+		%>
 			<a href="#" onclick="loadContent('employeeForm.jsp?action=add')"
-				class="btn btn-add"> <i class="fas fa-plus"></i> Thêm nhân viên
+				class="btn btn-add"> <i class="fas fa-plus"></i> Thêm nhân viên				
 			</a>
+			<%
+		}
+		%>
+
 		</div>
 		<div class="table-responsive">
 			<table class="table table-hover table-striped">
@@ -32,7 +47,14 @@
 						<th>Email</th>
 						<th>Ngày tuyển</th>
 						<th>Trạng thái</th>
+						<%
+		if ("Admin".equals(role)) {
+		%>
 						<th colspan="2">Thao tác</th>
+						<%
+		}
+		%>
+
 					</tr>
 				</thead>
 				<tbody>
@@ -44,8 +66,8 @@
 
                         if (employees != null && !employees.isEmpty()) {
                             for (Employee emp : employees) {
-                                String deptName = "N/A";
-                                String posName = "N/A";
+                                String deptName = "Phòng ban không còn";
+                                String posName = "Chức vụ không còn";
                                 if (departments != null) {
                                     for (Department dept : departments) {
                                         if (dept.getDepartmentId() == emp.getDepartmentId()) {
@@ -82,10 +104,10 @@
 							statusString = "orange";
 						}
 						%>
-						<td><span
-							class="status <%= statusString %>">
-								<%= status %>
+						<td><span class="status <%= statusString %>"> <%= status %>
 						</span></td>
+						<% if ("Admin".equals(role)) {
+		%>
 						<td><a href="#"
 							onclick="loadContent('employeeForm.jsp?action=update&id=<%= emp.getEmployeeId() %>')"
 							class="btn btn-sm btn-edit">Sửa</a></td>
@@ -93,6 +115,10 @@
 							href="EmployeeServlet?action=delete&id=<%= emp.getEmployeeId() %>"
 							onclick="return confirm('Bạn có chắc muốn xóa?');"
 							class="btn btn-sm btn-delete">Xóa</a></td>
+						<%
+		}
+		%>
+
 					</tr>
 					<%
                             }

@@ -32,7 +32,7 @@ body{
 }
 .top-nav{
 	display:flex;
-	justify-content:flex-end;
+	justify-content:space-between;
 	align-items:center;
 	width:75vw;
 	padding:20px 0 20px 20px;
@@ -149,7 +149,7 @@ main{
   padding: min(30px, 7%);
 }
 main p{
-  color: var(--secondary-text-clr);
+  color: black;
   margin-top: 5px;
   margin-bottom: 15px;
 }
@@ -159,7 +159,7 @@ main p{
   margin-bottom: 20px;
   padding: min(3em, 15%);
 
-  h2, p { margin-top: 1em }
+  h2, p { margin: 1em 0 }
 }
 
 @media(max-width: 800px){
